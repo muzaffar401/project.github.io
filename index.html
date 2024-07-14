@@ -9,8 +9,10 @@
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
 
 
     <style>
@@ -598,64 +600,257 @@
             }
         }
 
-    
-    </style>
-</head>
+        html {
+            scroll-behavior: smooth !important;
+        }
 
-<body>
+
+
+        .initial-view {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            background: #000000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 10;
+            transition: transform 1s ease-in-out;
+            color: white;
+        }
+
+        .website-content {
+            opacity: 0;
+            transition: opacity 1s ease-in-out 1s;
+        }
+
+        .initial-view.hidden {
+            transform: translateY(-100%);
+        }
+
+        .initial-view.hidden~.website-content {
+            opacity: 1;
+        }
+
+        body.no-scroll {
+            overflow: hidden;
+        }
+
+
+
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            color: white;
+            pointer-events: none;
+            z-index: 11;
+        }
+
+        .counter {
+            position: fixed;
+            left: 50px;
+            bottom: 50px;
+            display: flex;
+            height: 100px;
+            font-size: 100px;
+            line-height: 102px;
+            clip-path: polygon(0 0, 100% 0, 100% 100px, 0 100px);
+            font-weight: 400;
+        }
+
+        .counter-1,
+        .counter-2,
+        .counter-3 {
+            position: relative;
+            top: -15px;
+        }
+
+        .counter-1 {
+            margin-right: 15px;
+        }
+
+        .num1offset1 {
+            position: relative;
+            right: -25px;
+        }
+
+        .num1offset2 {
+            position: relative;
+            right: -10px;
+        }
+
+        .loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300px;
+            height: 50px;
+            transform: translate(-50%, -50%);
+            display: flex;
+            background-color: rgba(80, 80, 80);
+        }
+
+        .loader-1 {
+            position: relative;
+            background-color: #fff;
+            width: 200px;
+        }
+
+        .loader-2 {
+            position: relative;
+            width: 100px;
+            background-color: #fff;
+        }
+
+        .bar {
+            height: 50px;
+        }
+
+        .website-content {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+ 
+
+        .header {
+            position: relative;
+            width: max-content;
+            height: max-content;
+        }
+
+
+
+        .header-revealer {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .header-revealer::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 105%;
+            height: 110%;
+            background-color: #fff;
+            top: 80px;
+        }
+    </style>
+
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader">
+            <div class="loader-1 bar"></div>
+            <div class="loader-2 bar"></div>
+        </div>
+
+        <div class="counter">
+            <div class="counter-1 digit">
+                <div class="num">0</div>
+                <div class="num num1offset1">1</div>
+            </div>
+            <div class="counter-2 digit">
+                <div class="num">0</div>
+                <div class="num num1offset2">1</div>
+                <div class="num">2</div>
+                <div class="num">3</div>
+                <div class="num">4</div>
+                <div class="num">5</div>
+                <div class="num">6</div>
+                <div class="num">7</div>
+                <div class="num">8</div>
+                <div class="num">9</div>
+                <div class="num">0</div>
+            </div>
+            <div class="counter-3 digit">
+                <div class="num">0</div>
+                <div class="num">1</div>
+                <div class="num">2</div>
+                <div class="num">3</div>
+                <div class="num">4</div>
+                <div class="num">5</div>
+                <div class="num">6</div>
+                <div class="num">7</div>
+                <div class="num">8</div>
+                <div class="num">9</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="initial-view" id="initialView">
+        <div class="website-name">
+            <h1>Metric Conversion</h1>
+        </div>
+    </div>
+
+
     <div class="d-flex">
         <!-- Sidebar -->
         <aside id="sidebar" class="sidebar-toggle collapsed">
             <div class="sidebar-logo">
                 <a href="#">Metric Conversion</a>
             </div>
-            <li class="sidebar-header">Pages</li>
+            <ul class="sidebar-navigation">
+                <li class="sidebar-header">Pages</li>
 
-            <li class="sidebar-item">
-                <a href="articles.html" class="sidebar-link">
-                    <i class="fas fa-file-alt"></i>
-                    <span>Articles</span>
-                </a>
-            </li>
-            <li class="sidebar-item">
-                <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#auth"
-                    aria-expanded="true" aria-controls="auth">
-                    <i class="fas fa-exchange-alt"></i>
-                    <span>Conversion</span>
-                </a>
-                <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                    <li class="sidebar-item">
-                        <a href="lenght.html" class="sidebar-link">Length</a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="/html/area.html" class="sidebar-link">Area</a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="/html/volume.html" class="sidebar-link">Volume</a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="/html/mass.html" class="sidebar-link">Mass</a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="/html/temper.html" class="sidebar-link">Temperature</a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="/html/currency.html" class="sidebar-link">Currency</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="sidebar-item">
-                <a href="history.html" class="sidebar-link">
-                    <i class="fas fa-history"></i>
-                    <span>History</span>
-                </a>
-            </li>
-            <li class="sidebar-item">
-                <a href="faqs.html" class="sidebar-link">
-                    <i class="fas fa-question-circle"></i>
-                    <span>FAQs</span>
-                </a>
-            </li>
+                <li class="sidebar-item">
+                    <a href="articles.html" class="sidebar-link">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Articles</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                        data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
+                        <i class="fas fa-exchange-alt"></i>
+                        <span>Conversion</span>
+                    </a>
+                    <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="length.html" class="sidebar-link">Length</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/html/area.html" class="sidebar-link">Area</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/html/volume.html" class="sidebar-link">Volume</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/html/mass.html" class="sidebar-link">Mass</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/html/temper.html" class="sidebar-link">Temperature</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/html/currency.html" class="sidebar-link">Currency</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-item">
+                    <a href="history.html" class="sidebar-link">
+                        <i class="fas fa-history"></i>
+                        <span>History</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="faqs.html" class="sidebar-link">
+                        <i class="fas fa-question-circle"></i>
+                        <span>FAQs</span>
+                    </a>
+                </li>
             </ul>
             <!-- Sidebar Navigation Ends -->
         </aside>
@@ -678,39 +873,42 @@
                     </label>
                 </div>
 
-
-
                 <div class="container">
                     <h1 class="text-center text-light mt-5 mb-2" id="text">Unit Converter Express Version</h1>
                     <br>
                     <div class="container my-3 mb-5 text-center">
                         <div class="row">
-
-                            <div class="col-lg-4 col-md-6 col-sm-6 mb-md-3 mb-sm-3 mb-2"> <a href="/lenght.html"
-                                    style="--clr:#1e9bff" id="a" class="btn"><span>LENGTH</span><i></i></a></div>
-
-                            <div class="col-lg-4 col-md-6 col-sm-6 mb-md-3 mb-sm-3 mb-2"> <a href="/html/area.html"
-                                    style="--clr:#ff1e9b" id="a" class="btn"><span>AREA</span><i></i></a></div>
-
-                            <div class="col-lg-4 col-md-6 col-sm-6 mb-md-3 mb-sm-3 mb-2"> <a href="/html/volume.html"
-                                    style="--clr:#9bff1e" id="a" class="btn"><span>VOLUME</span><i></i></a></div>
-
-                            <div class="col-lg-4 col-md-6 col-sm-6 mb-md-3 mb-sm-3 mb-2"> <a href="/html/mass.html"
-                                    style="--clr:#ff9b1e" id="a" class="btn"><span>MASS</span><i></i></a></div>
-
-                            <div class="col-lg-4 col-md-6 col-sm-6 mb-md-3 mb-sm-3 mb-2"> <a href="/html/temper.html"
-                                    style="--clr:#9b1eff" id="a" class="btn"><span>TEMPERATURE</span><i></i></a></div>
-
-                            <div class="col-lg-4 col-md-6 col-sm-6 mb-md-3 mb-sm-3 mb-2"> <a href="/html/currency.html"
-                                    style="--clr:#ff1e1e" id="a" class="btn"><span>CURRENCY</span><i></i></a></div>
-
+                            <div class="col-lg-4 col-md-6 col-sm-6 mb-md-3 mb-sm-3 mb-2">
+                                <a href="length.html" style="--clr:#ffffff" id="a"
+                                    class="btn"><span>LENGTH</span><i></i></a>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-6 mb-md-3 mb-sm-3 mb-2">
+                                <a href="area.html" style="--clr:#ffffff" id="a"
+                                    class="btn"><span>AREA</span><i></i></a>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-6 mb-md-3 mb-sm-3 mb-2">
+                                <a href="volume.html" style="--clr:#ffffff" id="a"
+                                    class="btn"><span>VOLUME</span><i></i></a>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-6 mb-md-3 mb-sm-3 mb-2">
+                                <a href="mass.html" style="--clr:#ffffff" id="a"
+                                    class="btn"><span>MASS</span><i></i></a>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-6 mb-md-3 mb-sm-3 mb-2">
+                                <a href="temper.html" style="--clr:#ffffff" id="a"
+                                    class="btn"><span>TEMPERATURE</span><i></i></a>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-6 mb-md-3 mb-sm-3 mb-2">
+                                <a href="currency.html" style="--clr:#ffffff" id="a"
+                                    class="btn"><span>CURRENCY</span><i></i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="container my-5">
                     <div class="conversion-container" id="box">
-                        <h1 class="text-center mb-5" id="text1">Length Conversion</h1>
+                        <p class="text-center mb-5" id="text1">Currency Conversion</p>
                         <form>
                             <div class="mb-4">
                                 <label for="value" class="form-label fs-4" id="inputTxt">Enter Value</label>
@@ -720,34 +918,32 @@
                             <div class="my-5">
                                 <label for="conversionType" class="form-label fs-4" id="inputTxt">From</label>
                                 <select id="conversionType" class="form-control" onchange="showFormula()">
-                                    <option value="inchesToMillimeters">Inches to Millimeters</option>
-                                    <option value="feetToMeters">Feet to Meters</option>
-                                    <option value="yardsToMeters">Yards to Meters</option>
-                                    <option value="milesToKilometers">Miles to Kilometers</option>
+                                    <option value="usdToEur">USD to EUR</option>
+                                    <option value="eurToUsd">EUR to USD</option>
                                 </select>
+
                             </div>
                             <div id="formula" class="my-5"></div>
                             <div class="text-center">
-                                <button type="button" class="btn" id="a" style="--clr:#ffffff"
-                                    onclick="convert()"><span>CONVERT</span><i></i></a></button>
+                                <button type="button" class="btn" id="a" style="--clr:#ffffff" onclick="convert()">
+                                    <span>CONVERT</span><i></i>
+                                </button>
                             </div>
                         </form>
                         <div class="text-center my-5 myResult">
                             <span id="result1">
-                                <span id="result2">RESULT :</span>
+                                <span id="result2"></span>
                                 <span id="result"></span>
                             </span>
                             <i class="fas fa-cog settings-icon" id="setting-icon" style="display:none;"></i>
                         </div>
-
                     </div>
                 </div>
+            </main>
         </div>
-        </main>
-    </div>
     </div>
 
-    <div class="container mt-5" style=" border-top: 2px solid white;"></div>
+    <div class="container mt-5" style="border-top: 2px solid white;"></div>
 
     <div class="container my-5">
         <!-- Footer -->
@@ -841,8 +1037,8 @@
             <!-- Grid container -->
 
             <!-- Copyright -->
-             <hr class="container" style="color: white;">
-            <div class="text-center p-3 mt-2" >
+            <hr class="container" style="color: white;">
+            <div class="text-center p-3 mt-2">
                 © 2024 Copyright :
                 <a class="text-white">Metric Conversion</a>
             </div>
@@ -851,6 +1047,8 @@
         <!-- Footer -->
     </div>
 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
@@ -896,17 +1094,11 @@
             let formulaText;
 
             switch (conversionType) {
-                case 'inchesToMillimeters':
-                    formulaText = 'Formula: 1 inch = 25.4 millimeters';
+                case 'usdToEur':
+                    formulaText = 'Formula: USD * 0.85 = EUR';
                     break;
-                case 'feetToMeters':
-                    formulaText = 'Formula: 1 foot = 0.3048 meters';
-                    break;
-                case 'yardsToMeters':
-                    formulaText = 'Formula: 1 yard = 0.9144 meters';
-                    break;
-                case 'milesToKilometers':
-                    formulaText = 'Formula: 1 mile = 1.60934 kilometers';
+                case 'eurToUsd':
+                    formulaText = 'Formula: EUR * 1.18 = USD';
                     break;
                 default:
                     formulaText = '';
@@ -915,45 +1107,19 @@
             document.getElementById('formula').innerText = formulaText;
         }
 
-
-
-        function showFormula() {
-            let conversionType = document.getElementById('conversionType').value;
-            let formulaText;
-
-            switch (conversionType) {
-                case 'inchesToMillimeters':
-                    formulaText = 'Formula: 1 inch = 25.4 millimeters';
-                    break;
-                case 'feetToMeters':
-                    formulaText = 'Formula: 1 foot = 0.3048 meters';
-                    break;
-                case 'yardsToMeters':
-                    formulaText = 'Formula: 1 yard = 0.9144 meters';
-                    break;
-                case 'milesToKilometers':
-                    formulaText = 'Formula: 1 mile = 1.60934 kilometers';
-                    break;
-                default:
-                    formulaText = '';
-            }
-
-            document.getElementById('formula').innerText = formulaText;
-        }
-
-        document.getElementById("result2").innerText = "RESULT :"
+        document.getElementById("result2").innerText = "RESULT :";
 
         function convert() {
             let value = document.getElementById('value').value;
             if (isNaN(value) || value.trim() === '') {
                 document.getElementById('error').innerText = 'Please enter a valid number';
                 document.getElementById('result').innerText = "";
-                document.getElementById("result2").innerText = "RESULT :"
+                document.getElementById("result2").innerText = "RESULT :";
                 return;
             }
 
             document.getElementById('error').innerText = '';
-            document.getElementById('result2').style.display = 'none';
+            document.getElementById('result2').innerText = "";
             document.getElementById('setting-icon').style.display = 'block';
             document.getElementById('setting-icon').classList.add('spin');
             document.getElementById('result').innerText = "";
@@ -961,32 +1127,170 @@
             setTimeout(() => {
                 let conversionType = document.getElementById('conversionType').value;
                 let result;
+
+                // Example conversion rates (replace with actual rates)
+                const conversionRates = {
+                    usdToEur: 0.85,
+                    eurToUsd: 1.18
+                };
+
                 switch (conversionType) {
-                    case 'inchesToMillimeters':
-                        result = value * 25.4;
+                    case 'usdToEur':
+                        result = value * conversionRates.usdToEur;
                         break;
-                    case 'feetToMeters':
-                        result = value * 0.3048;
-                        break;
-                    case 'yardsToMeters':
-                        result = value * 0.9144;
-                        break;
-                    case 'milesToKilometers':
-                        result = value * 1.60934;
+                    case 'eurToUsd':
+                        result = value * conversionRates.eurToUsd;
                         break;
                     default:
                         result = 'Invalid conversion type';
                 }
+
                 document.getElementById('result').innerText = result.toFixed(2);
                 document.getElementById('setting-icon').style.display = 'none';
                 document.getElementById('setting-icon').classList.remove('spin');
-                document.getElementById('result2').style.display = 'none';
+                document.getElementById('result2').innerText = "";
             }, 5000);
         }
 
         // Initialize the formula display on page load
         window.onload = showFormula;
+
+
+
+
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.body.classList.add('no-scroll');
+
+            setTimeout(function () {
+                document.getElementById('loadingScreen').style.display = 'none';
+                document.getElementById('initialView').classList.remove('hidden');
+                document.getElementById('initialView').classList.add('show');
+                document.body.classList.remove('no-scroll');
+            }, 9000); // Adjust the delay as needed
+
+            setTimeout(function () {
+                document.getElementById('initialView').classList.add('hidden');
+            }, 9000); // Adjust the delay as needed
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const counter3 = document.querySelector(".counter-3");
+
+            for (let i = 0; i < 2; i++) {
+                for (let j = 0; j < 10; j++) {
+                    const div = document.createElement("div");
+                    div.className = "num";
+                    div.textContent = j;
+                    counter3.appendChild(div);
+                }
+            }
+
+            const finalDiv = document.createElement("div");
+            finalDiv.className = "num";
+            finalDiv.textContent = "0";
+            counter3.appendChild(finalDiv);
+
+            function animate(counter, duration, delay = 0) {
+                const numHeight = counter.querySelector(".num").clientHeight;
+                const totalDistance = (counter.querySelectorAll(".num").length - 1) * numHeight;
+                gsap.to(counter, {
+                    y: -totalDistance,
+                    duration: duration,
+                    delay: delay,
+                    ease: "power2.inOut",
+                });
+            }
+
+            animate(counter3, 5);
+            animate(document.querySelector(".counter-2"), 6);
+            animate(document.querySelector(".counter-1"), 2, 4);
+        });
+
+        gsap.to(".digit", {
+            top: "-150px",
+            stagger: {
+                amount: 0.25,
+            },
+            delay: 6,
+            duration: 1,
+            ease: "power4.inOut",
+        });
+
+        gsap.from(".loader-1", {
+            width: 0,
+            duration: 6,
+            ease: "power2.inOut",
+        });
+
+        gsap.from(".loader-2", {
+            width: 0,
+            delay: 1.9,
+            duration: 2,
+            ease: "power2.inOut",
+        });
+
+        gsap.to(".loader", {
+            background: "none",
+            delay: 6,
+            duration: 0.1,
+        });
+
+        gsap.to(".loader-1", {
+            rotate: 90,
+            y: -50,
+            duration: 0.5,
+            delay: 6.
+        });
+
+        gsap.to(
+            ".loader-2",
+            {
+                x: -75,
+                y: 75,
+                duration: 0.5,
+            },
+            "<"
+        );
+
+        gsap.to(".loader", {
+            scale: 40,
+            duration: 1,
+            delay: 7,
+            ease: "power2.inOut"
+        });
+
+        gsap.to(".loader", {
+            rotate: 45,
+            y: 500,
+            x: 2000,
+            duration: 1,
+            delay: 7,
+            ease: "power2.inOut",
+        });
+
+        gsap.to(".loading-screen", {
+            opacity: 0,
+            duration: 0.5,
+            delay: 7.5,
+            ease: "power1.inOut",
+        })
+
+        gsap.to("h1", 1.5, {
+            delay: 7,
+            y: -80,
+            ease: "power4.inOut",
+            stagger: {
+                amount: 0.1,
+            }
+        })
+
+
+
     </script>
+
+
 </body>
 
 </html>
